@@ -4,6 +4,8 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 var connect = require('gulp-connect');
+var imagemin = require('gulp-imagemin');
+
 
 
 gulp.task('sass', function(){
@@ -34,6 +36,21 @@ gulp.task('serve', ['copy','js','sass'], function() {
     livereload: true
   });
 });
+
+gulp.task('images', function(){
+  return gulp.src('src/images/*')
+    .pipe(imagemin({
+      progressive: true
+    }))
+    .pipe(gulp.dest('dist/images/lores'));
+});
+
+gulp.task('default', ['serve'], function(){
+  gulp.watch('src/*.html', ['copy']);
+  gulp.watch('src/js/*', ['js']);
+  gulp.watch('src/scss/*', ['sass']);
+  gulp.watch('src/images/*', ['images']);
+})
 /*
 add autoprefixer
 */

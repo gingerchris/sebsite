@@ -1,4 +1,5 @@
 "use strict";
+var iHeight;
 
 let loadImg = (element) => {
   if(element.children().length){
@@ -8,22 +9,45 @@ let loadImg = (element) => {
   console.log(url);
 }
 
-var gallery;
+let getSize = () => {
+  iHeight = $(window).height();
+}
+
+let prevID = (el) => {
+  let id = 0;
+  el.prevAll('.page').each(function(i,e){
+    let tid = $(e).attr('id');
+    if(typeof tid !== "undefined"){
+      id = tid;
+      return false;
+    }
+  });
+  return id;
+}
+
 
 $(function(){
-  gallery = $('#gallery');
+  getSize();
+
+  if(window.location.hash){
+    let el = $(`#sect_${window.location.hash.replace('#','')}`);
+    $('html, body').animate({
+        scrollTop: el.offset().top
+    }, 2000);
+  }
+
+  $(window).on('resize',getSize);
   //on scroll, update the URL
   //on url update, load the next image
- 
-  //on ready, create containers for all the images
-  imgs.forEach(url => {
-    gallery.append(`<div class='galItem' data-src='${url}'></div>`);
-  })
   
    //on ready, load the first image
-   loadImg($('.galItem').withinviewport().eq(0));
 
    $(document).scroll( e => {
-    loadImg($('.galItem').withinviewport().eq(0));
+    let current = Math.round($(window).scrollTop() / iHeight);
+    let id = $(`.page:eq(${current})`).attr('id');
+    if(typeof(id) == "undefined"){
+      id = prevID($(`.page:eq(${current})`));
+    }
+    window.location.hash = id.replace('sect_','');
    })
 })

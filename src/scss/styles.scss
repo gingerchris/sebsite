@@ -1,12 +1,61 @@
-.page{
-  width:100%;
-  height:500px;
+@import "lib/meyer-reset";
+
+html, body{
+  margin:0;
+  background: #00AFA5;
+  color:white;
 }
 
-.galItem{
-  background:blue;
-  @extend .page;
-  &.visible{
-    background:green;
+.page{
+  width:100vw;
+  height:100vh;
+  text-align:center;
+  
+  .image{
+    display:inline-block;
+    width:100%;
+    height:100%;
+    max-width:1280px;
+  }
+  
+  @for $i from 1 through 50{
+    &:nth-child(#{$i}) .image{
+      
+      background:url(../images/lores/#{$i}.jpg) center center no-repeat;
+      background-size:contain;
+    }
+  }
+}
+
+.caption{
+  text-align:left;
+  position:relative;
+  top:50%;
+  transform: translateY(-50%);
+  
+  p:first-of-type{
+    font-weight:bold;
+  }
+  p{
+    margin-top:10px;
+  }
+  &-phone{
+    width:20%;
+    margin-left:60%;
+  }
+  &-mm{
+    width:23%;
+    margin:0 auto;
+    top:56%;
+    transform: none;
+    p{
+      font-weight:normal;
+    }
+  }
+  &-nick{
+    width:20%;
+    margin-left:68%;
+    top:25%;
+    transform:none;
   }
 }
