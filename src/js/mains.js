@@ -1,14 +1,6 @@
 "use strict";
 var iHeight;
 
-let loadImg = (element) => {
-  if(element.children().length){
-    return;
-  }
-  let url = element.data('src');
-  console.log(url);
-}
-
 let getSize = () => {
   iHeight = $(window).height();
 }
