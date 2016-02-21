@@ -55,7 +55,7 @@ $(function(){
     }, 50);
   }
 
-  $('.intro--contact span:first').on('click',function(){
+  $('.contact--1').on('click',function(){
     $('.intro--contact').toggleClass('show');
   })
 

@@ -40,13 +40,14 @@
 }
 
 @keyframes contact {
-  0% { bottom: -250px; }
-  100% { bottom: -100px; }
+  0% { bottom: -240px; }
+  100% { bottom: -90px; }
 }
+$mint : #00AFA5;
 
 html, body{
   margin:0;
-  background: #00AFA5;
+  background: $mint;
   color:white;
   font-family: 'futuraLight';
   font-size:14px;
@@ -95,9 +96,10 @@ html, body{
   position:fixed;
   right:5%;
   z-index:10;
-  bottom:-250px;
+  bottom:-240px;
+  background:$mint;
   
-  text-align:right;
+  text-align:left;
   font-size:30px;
   line-height:35px;
   
@@ -105,31 +107,33 @@ html, body{
   transition: 0.5s all;
   
   &.show{
-    transform:translateY(-100px);
+    transform:translateY(-90px);
   }
-  div{
+  .contact--1{
+    position:absolute;
+    right:0px;
+    top:-51px;
+    background:$mint;
+  }
+  .contact--content{
+    background:$mint;
+    padding:8px;
+    border:4px solid white;
+    border-bottom:none;
+  }
+  .contact--2{
     position:relative;
     z-index:1;
-    background:#00AFA5;
+    background:$mint;
     float:right;
     clear:both;
-    padding:8px;
     span{
       position:relative;
       padding:8px 0 0 8px;
       display:inline-block;
       cursor:pointer;
     }
-    i{
-      display:block;
-      background:#00AFA5;
-      height:8px;
-      width:105px;
-      position:absolute;
-      top:-4px;
-      right:-4px;
-    }
-    &:after{
+    &:before, &:after{
       display:block;
       background:#020F2F;
       transform:rotate(40deg);
@@ -142,19 +146,13 @@ html, body{
       left:0;
       z-index:-1;
     }
-    &:before{
-      content:'';
-      display:block;
-      width:100%;
-      height:100%;
-      position:absolute;
-      top:0;
-      left:0;
-      background:#00AFA5;
-      z-index:0;
-      border:4px solid white;
-      border-bottom:0;
+    &:after{
+      top:-50px;
+      left:180px;
+      width:100px;
+      height:100px;
     }
+    
   }
 }
 
@@ -189,6 +187,7 @@ a.social{
     width:100%;
     height:100%;
     max-width:1280px;
+    position:relative;
   }
   
   @for $i from 1 through 50{
@@ -232,6 +231,17 @@ a.social{
       margin-left:70%;
       transform:none;
       top:10%;
+  }
+  &--mm-bl{
+    width:26%;
+    margin-left:8%;
+    transform:none;
+    bottom:10%;
+    top:auto;
+    position:absolute;
+  }
+  &-tw{
+    margin-left:72%;
   }
   &-nick{
     width:20%;
