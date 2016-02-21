@@ -15,7 +15,7 @@ let getSize = () => {
 
 let prevID = (el) => {
   let id = 0;
-  el.prevAll('.page').each(function(i,e){
+  el.prevAll().each(function(i,e){
     let tid = $(e).attr('id');
     if(typeof tid !== "undefined"){
       id = tid;
@@ -23,6 +23,25 @@ let prevID = (el) => {
     }
   });
   return id;
+}
+
+let swapimg = (el) => {
+  if(el.data('swapped')){
+    return;
+  }
+  let img = el.find('.image');
+  let src = img.css('backgroundImage');
+  if(typeof src == "undefined"){
+    return;
+  }
+
+  let newsrc = img.css('backgroundImage').replace('lores','highres');
+  $("<img />").attr("src", newsrc.slice(5, -2)).on('load', () => {
+    img.css({
+      backgroundImage: newsrc
+    }).data('swapped',true);
+  });
+
 }
 
 
@@ -33,8 +52,12 @@ $(function(){
     let el = $(`#sect_${window.location.hash.replace('#','')}`);
     $('html, body').animate({
         scrollTop: el.offset().top
-    }, 2000);
+    }, 50);
   }
+
+  $('.intro--contact span:first').on('click',function(){
+    $('.intro--contact').toggleClass('show');
+  })
 
   $(window).on('resize',getSize);
   //on scroll, update the URL
@@ -44,10 +67,22 @@ $(function(){
 
    $(document).scroll( e => {
     let current = Math.round($(window).scrollTop() / iHeight);
-    let id = $(`.page:eq(${current})`).attr('id');
-    if(typeof(id) == "undefined"){
-      id = prevID($(`.page:eq(${current})`));
+    let currentEl = $('body').children(`:eq(${current})`);
+    let id = currentEl.attr('id');
+    if(typeof id == "undefined"){
+      id = prevID(currentEl);
     }
     window.location.hash = id.replace('sect_','');
+
+    var next = currentEl.next();
+    swapimg(next);
+    var prev = currentEl.prev();
+    swapimg(prev);
+
+    if(id === "sect_video"){
+      $('video')[0].play();
+    }else{
+      $('video')[0].pause();
+    }
    })
 })

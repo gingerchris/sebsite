@@ -1,15 +1,188 @@
 @import "lib/meyer-reset";
 
+@font-face {
+    font-family: 'futuraLight';
+    src: url('../fonts/Futura-Light.eot');
+    src: url('../fonts/Futura-Light.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Futura-Light.svg#futuraLight') format('svg'),
+    url('../fonts/Futura-Light.woff') format('woff'),
+    url('../fonts/Futura-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'futuraMedium';
+    src: url('../fonts/Futura-Medium.eot');
+    src: url('../fonts/Futura-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Futura-Medium.svg#futuraMedium') format('svg'),
+    url('../fonts/Futura-Medium.woff') format('woff'),
+    url('../fonts/Futura-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'bbnb';
+    src: url('../fonts/bbnb.eot');
+    src: url('../fonts/bbnb.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/bbnb.svg#bbnb') format('svg'),
+    url('../fonts/bbnb.woff') format('woff'),
+    url('../fonts/bbnb.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@keyframes floater {
+    0% {margin-top: 0;}
+    50% {margin-top: 15px;}
+    100% {margin-top: 0;}
+}
+
+@keyframes contact {
+  0% { bottom: -250px; }
+  100% { bottom: -100px; }
+}
+
 html, body{
   margin:0;
   background: #00AFA5;
   color:white;
+  font-family: 'futuraLight';
+  font-size:14px;
+  line-height:15px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+.intro, .video{
+  font-family:bbnb;
+  width:100vw;
+  height:100vh;
+  text-align:center;
+  video{
+    display:inline-block;
+    width:100%;
+    height:100%;
+    max-width:1280px;
+  }
+}
+
+.intro--text{
+  font-size:70px;
+  line-height:70px;
+  left:50%;
+  top:50%;
+  position:relative;
+  transform:translateX(-50%) translateY(-50%);
+}
+
+.intro--arrow{
+  width: 0;
+  height: 0;
+  position:absolute;
+  left:50%;
+  border-style: solid;
+  border-width: 30px 30px 0 30px;
+  border-color: #ffffff transparent transparent transparent;
+  animation: floater infinite 2s;
+  transform:translateX(-50%) translateY(10px);
+}
+
+.intro--contact{
+  position:fixed;
+  right:5%;
+  z-index:10;
+  bottom:-250px;
+  
+  text-align:right;
+  font-size:30px;
+  line-height:35px;
+  
+  animation: contact 1s 1s 1 forwards;
+  transition: 0.5s all;
+  
+  &.show{
+    transform:translateY(-100px);
+  }
+  div{
+    position:relative;
+    z-index:1;
+    background:#00AFA5;
+    float:right;
+    clear:both;
+    padding:8px;
+    span{
+      position:relative;
+      padding:8px 0 0 8px;
+      display:inline-block;
+      cursor:pointer;
+    }
+    i{
+      display:block;
+      background:#00AFA5;
+      height:8px;
+      width:105px;
+      position:absolute;
+      top:-4px;
+      right:-4px;
+    }
+    &:after{
+      display:block;
+      background:#020F2F;
+      transform:rotate(40deg);
+      width:140px;
+      height:140px;
+      content:'';
+      transform-origin:left top;
+      position:absolute;
+      top:0;
+      left:0;
+      z-index:-1;
+    }
+    &:before{
+      content:'';
+      display:block;
+      width:100%;
+      height:100%;
+      position:absolute;
+      top:0;
+      left:0;
+      background:#00AFA5;
+      z-index:0;
+      border:4px solid white;
+      border-bottom:0;
+    }
+  }
+}
+
+a.social{
+  display:inline-block;
+  background-image:url(../images/logos/icons.png);
+  width:23px;
+  height:23px;
+  margin-left:3px;
+  &:nth-of-type(2){
+    width:22px;
+    background-position:-32px 0;
+  }
+  &:nth-of-type(3){
+    width:29px;
+    background-position:-64px 0;
+  }
+  &:nth-of-type(4){
+    width:26px;
+    background-position:-101px 0;
+  }
 }
 
 .page{
   width:100vw;
   height:100vh;
   text-align:center;
+  
   
   .image{
     display:inline-block;
@@ -19,7 +192,7 @@ html, body{
   }
   
   @for $i from 1 through 50{
-    &:nth-child(#{$i}) .image{
+    &:nth-of-type(#{$i}) .image{
       
       background:url(../images/lores/#{$i}.jpg) center center no-repeat;
       background-size:contain;
@@ -32,15 +205,17 @@ html, body{
   position:relative;
   top:50%;
   transform: translateY(-50%);
-  
+  img{
+    max-width:100%;
+  }
   p:first-of-type{
-    font-weight:bold;
+    font-family:'futuraMedium';
   }
   p{
     margin-top:10px;
   }
   &-phone{
-    width:20%;
+    width:21%;
     margin-left:60%;
   }
   &-mm{
@@ -49,13 +224,19 @@ html, body{
     top:56%;
     transform: none;
     p{
-      font-weight:normal;
+      font-family:'futuraLight'!important;
     }
+  }
+  &--mm-b{
+      width:26%;
+      margin-left:70%;
+      transform:none;
+      top:10%;
   }
   &-nick{
     width:20%;
     margin-left:68%;
-    top:25%;
+    top:15%;
     transform:none;
   }
 }
