@@ -37,7 +37,9 @@ gulp.task('copy', function(){
 gulp.task('js', function(){
   return gulp.src(['src/**/*.js'])
     .pipe(sourcemaps.init())
-    .pipe(babel())
+    .pipe(babel({
+      presets: ['es2015']
+    }))
     .pipe(concat('main.js'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist/js'));

@@ -17,6 +17,10 @@ let prevID = (el) => {
   return id;
 }
 
+let strip = (str) => {
+  return str.split('url(').join('').split(')').join('').split('"').join('').split("'").join('');
+}
+
 let swapimg = (el) => {
   if(el.data('swapped')){
     return;
@@ -28,10 +32,12 @@ let swapimg = (el) => {
   }
 
   let newsrc = img.css('backgroundImage').replace('lores','highres');
-  $("<img />").attr("src", newsrc.slice(5, -2)).on('load', () => {
+  newsrc = strip(newsrc);
+  $("<img />").attr("src", newsrc).on('load', () => {
     img.css({
       backgroundImage: newsrc
-    }).data('swapped',true);
+    }).parent().data('swapped',true);
+    console.log(img[0].outerHTML);
   });
 
 }
